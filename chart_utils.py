@@ -2,12 +2,14 @@
 import plotly.graph_objects as go
 from datetime import datetime
 
-def plot_stock_chart(stock_data, future_projections):
+def plot_stock_chart(stock_data, future_projections, date_format):
     """
     Plots a step line chart for the actual stock prices (last 10 data points)
     and overlays the future projection lines (from historical pattern logic).
+    Uses the provided date_format to parse date strings.
     """
-    dates_actual = [datetime.strptime(data['date'], '%d-%b-%Y') for data in stock_data[-10:]]
+    # Parse actual dates using the passed date_format
+    dates_actual = [datetime.strptime(data['date'], date_format) for data in stock_data[-10:]]
     prices_actual = [data['close'] for data in stock_data[-10:]]
     
     fig = go.Figure()
@@ -21,9 +23,9 @@ def plot_stock_chart(stock_data, future_projections):
     ))
     
     for proj in future_projections:
-        # Each projection is a dictionary with 'label' and 'data'
+        # Each projection is a dict with 'label' and 'data'
         future_line = proj['data']
-        future_dates = [datetime.strptime(item['date'], '%d-%b-%Y') for item in future_line]
+        future_dates = [datetime.strptime(item['date'], date_format) for item in future_line]
         future_prices = [item['close'] for item in future_line]
         fig.add_trace(go.Scatter(
             x=future_dates,
