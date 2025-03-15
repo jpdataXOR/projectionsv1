@@ -23,6 +23,7 @@ def get_stock_data(stock_symbol, interval):
 
         stock_data.append({
             'date': array_data.index[i].strftime(date_format),
+            'close': close_price,
             'percentage_change': round(percentage_change, 2)  # Round for better readability
         })
 
@@ -45,36 +46,37 @@ if st.button("Analyze"):
     try:
         stock_data = get_stock_data(selected_symbol, selected_interval)
 
-        # Convert data for plotting
+        # **Extract data for plotting**
         dates = [datetime.strptime(data['date'], '%d-%b-%Y') for data in stock_data]
+        prices = [data['close'] for data in stock_data]
         percentage_changes = [data['percentage_change'] for data in stock_data]
 
-        # **Only keep the last 10 points for the chart**
+        # **Keep only last 10 points for the chart**
         last_10_dates = dates[-10:]
-        last_10_changes = percentage_changes[-10:]
+        last_10_prices = prices[-10:]
 
-        # Step Line Chart (Last 10 periods)
+        # **Step Line Chart (Stock Prices)**
         step_trace = go.Scatter(
             x=last_10_dates,
-            y=last_10_changes,
+            y=last_10_prices,
             mode='lines',
             line_shape='hv',  # Step-like movements
-            name='Close % Change',
+            name='Stock Prices',
             marker=dict(color='blue')
         )
 
         fig = go.Figure(data=[step_trace])
         fig.update_layout(
-            title="Stock % Change (Last 10 Periods)",
+            title="Stock Prices (Last 10 Periods)",
             xaxis_title="Date",
-            yaxis_title="Close % Change",
+            yaxis_title="Price",
             showlegend=False
         )
         st.plotly_chart(fig)
 
-        # Display Data Table (Horizontal)
+        # **Table (Last 10 Percentage Changes)**
         stock_df = pd.DataFrame(stock_data[-10:])  # Only show last 10 points
-        stock_df = stock_df.set_index("date").T  # Transpose to horizontal format
+        stock_df = stock_df[['date', 'percentage_change']].set_index("date").T  # Transpose for horizontal format
 
         # Apply color styling
         styled_df = stock_df.style.applymap(highlight_cells)
