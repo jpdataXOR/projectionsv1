@@ -92,7 +92,13 @@ def generate_future_projections_pattern(stock_symbol, interval, future_points=10
         current_date = last_date
         future_line.append({'date': current_date.strftime(date_format), 'close': last_close})
         for price in future_prices[1:]:
-            current_date += timedelta(days=1)  # Assuming daily interval for projections
+            # Adjust the date increment based on interval
+            if interval == "1h":
+                current_date += timedelta(hours=1)
+            elif interval == "1wk":
+                current_date += timedelta(weeks=1)
+            else:  # 1d
+                current_date += timedelta(days=1)
             future_line.append({'date': current_date.strftime(date_format), 'close': price})
         
         # Label the projection with the date where the pattern was found
@@ -102,6 +108,7 @@ def generate_future_projections_pattern(stock_symbol, interval, future_points=10
         future_projections.append({'label': label, 'data': future_line})
     
     return future_projections
+
 
 def highlight_cells(val):
     """Returns a CSS style string for cell background based on the value."""

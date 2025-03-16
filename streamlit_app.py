@@ -3,8 +3,9 @@ from stock_options import stock_options
 from data_utils import get_stock_data, generate_future_projections_pattern, prepare_table
 from chart_utils import plot_stock_chart
 import pandas as pd
+from datetime import datetime
 
-st.title("Stock Analysis App")
+st.title("Instrument Analysis App")
 
 # Create tabs for Predefined Stocks and Custom Stock Search
 tab1, tab2 = st.tabs(["Predefined Stocks", "Custom Stock Search"])
@@ -32,8 +33,8 @@ if st.button("Analyze"):
         st.error("Please select a stock or enter a custom ticker symbol")
     else:
         st.info(f"Analyzing: {stock_label}")
-        intervals = ["1h", "1d", "1wk"]
-        # Run analysis for each interval one after the other
+        # Intervals now ordered as: weekly, daily, hourly.
+        intervals = ["1wk", "1d", "1h"]
         for interval in intervals:
             st.subheader(f"Interval: {interval}")
             # Set date format based on interval
@@ -42,6 +43,11 @@ if st.button("Analyze"):
             # Get stock data and projections for this interval
             stock_data = get_stock_data(selected_symbol, interval)
             future_projections = generate_future_projections_pattern(selected_symbol, interval)
+            
+            # Get current time and latest data timestamp for this interval
+            current_time = datetime.now().strftime(date_format)
+            latest_time = stock_data[-1]['date']
+            st.write(f"Current Time: {current_time} | Latest Data Time: {latest_time}")
             
             # Plot and display the chart
             fig = plot_stock_chart(stock_data, future_projections, date_format)
