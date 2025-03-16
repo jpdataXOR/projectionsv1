@@ -27,31 +27,29 @@ with tab2:
         selected_method = "custom"
         stock_label = custom_stock  # Use the custom ticker as the label
 
-# Select the interval
-selected_interval = st.selectbox("Select an interval", ["1d", "1h", "1wk"])
-# Determine the correct date format based on interval
-date_format = '%d-%b-%Y %H:%M' if selected_interval == "1h" else '%d-%b-%Y'
-
 if st.button("Analyze"):
     if not selected_symbol:
         st.error("Please select a stock or enter a custom ticker symbol")
     else:
-        # Print label showing which stock is being analyzed
         st.info(f"Analyzing: {stock_label}")
-        try:
-            # Get actual stock data
-            stock_data = get_stock_data(selected_symbol, selected_interval)
-            # Generate future projections using historical pattern matching logic
-            future_projections = generate_future_projections_pattern(selected_symbol, selected_interval)
-            # Plot chart: actual prices and future projection lines with labels
+        intervals = ["1h", "1d", "1wk"]
+        # Run analysis for each interval one after the other
+        for interval in intervals:
+            st.subheader(f"Interval: {interval}")
+            # Set date format based on interval
+            date_format = '%d-%b-%Y %H:%M' if interval == "1h" else '%d-%b-%Y'
+            
+            # Get stock data and projections for this interval
+            stock_data = get_stock_data(selected_symbol, interval)
+            future_projections = generate_future_projections_pattern(selected_symbol, interval)
+            
+            # Plot and display the chart
             fig = plot_stock_chart(stock_data, future_projections, date_format)
             st.plotly_chart(fig)
-            # Display styled table of percentage changes for last 10 data points
+            
+            # Display the styled percentage change table (for the last 10 data points)
             styled_table = prepare_table(stock_data)
             st.dataframe(styled_table)
-        except Exception as e:
-            st.error(f"Error fetching stock data: {e}")
-            st.info("This could be due to an invalid ticker symbol or no data available for the selected interval.")
 
 if __name__ == "__main__":
     st.write("Ready to analyze stocks!")
