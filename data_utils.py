@@ -39,15 +39,20 @@ def print_difference_data(arg_array, index, matched_length, forward_length):
     future_average = sum(item['percentage_difference'] for item in indices) / len(indices)
     return indices, matched, future_average
 
-def generate_future_projections_pattern(stock_symbol, interval, future_points=10, num_lines=5):
+def generate_future_projections_pattern(stock_symbol, interval, future_points=10, num_lines=5, data_override=None):
     """
     Uses historical pattern matching logic to extract a series of future percentage changes
     from similar past patterns and projects future prices.
     Each projection is labeled with the date where the matching pattern was found.
+    If data_override is provided, it will use that DataFrame instead of fetching new data.
     """
-    period = "1y" if interval == "1h" else "5y" if interval == "1d" else "max"
-    instrument = yf.Ticker(stock_symbol)
-    array_data = instrument.history(period=period, interval=interval, auto_adjust=False)
+    if data_override is None:
+        period = "1y" if interval == "1h" else "5y" if interval == "1d" else "max"
+        instrument = yf.Ticker(stock_symbol)
+        array_data = instrument.history(period=period, interval=interval, auto_adjust=False)
+    else:
+        array_data = data_override
+
     date_format = '%d-%b-%Y %H:%M' if interval == "1h" else '%d-%b-%Y'
     
     # Create a string of 'U' and 'D' representing Up/Down movements
@@ -92,7 +97,6 @@ def generate_future_projections_pattern(stock_symbol, interval, future_points=10
         current_date = last_date
         future_line.append({'date': current_date.strftime(date_format), 'close': last_close})
         for price in future_prices[1:]:
-            # Adjust the date increment based on interval
             if interval == "1h":
                 current_date += timedelta(hours=1)
             elif interval == "1wk":
@@ -108,7 +112,6 @@ def generate_future_projections_pattern(stock_symbol, interval, future_points=10
         future_projections.append({'label': label, 'data': future_line})
     
     return future_projections
-
 
 def highlight_cells(val):
     """Returns a CSS style string for cell background based on the value."""
