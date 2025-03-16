@@ -9,13 +9,15 @@ from data_utils import generate_future_projections_pattern
 def fetch_and_normalize(stock, period="1y", interval="1d"):
     """
     Fetch historical data and normalize the Close prices so that the first value is 1.
-    Returns the DataFrame and the initial raw close price.
+    If no data is returned, return (None, None).
     """
     ticker = yf.Ticker(stock)
     df = ticker.history(period=period, interval=interval, auto_adjust=True)
     df = df.sort_index()  # Ensure ascending order
-    initial = df['Close'].iloc[0]
-    df['Normalized'] = df['Close'] / initial
+    if df.empty or "Close" not in df.columns:
+        return None, None
+    initial = df["Close"].iloc[0]
+    df["Normalized"] = df["Close"] / initial
     df = df.reset_index()  # Make the date a column
     return df, initial
 
@@ -28,7 +30,6 @@ def plot_3d_predictions(stocks, period="1y", interval="1d", actual_points=10, pr
       - x-axis: Time index (0, 1, 2, …)
       - y-axis: A small offset for visual separation (unique for each stock)
       - z-axis: Normalized price (each series starts at 1)
-    Predictions begin immediately where actual data ends.
     """
     offsets = {
         "GOOG": 0.0,
@@ -49,8 +50,13 @@ def plot_3d_predictions(stocks, period="1y", interval="1d", actual_points=10, pr
     
     for stock in stocks:
         df, initial = fetch_and_normalize(stock, period, interval)
+        if df is None:
+            st.warning(f"No data found for {stock}. Skipping.")
+            continue
+
         n = len(df)
         if n < actual_points:
+            st.warning(f"Not enough data for {stock}. Skipping.")
             continue
         
         # Actual data
@@ -58,13 +64,13 @@ def plot_3d_predictions(stocks, period="1y", interval="1d", actual_points=10, pr
         x_actual = np.arange(actual_points)
         y_offset = offsets.get(stock, 0)
         y_actual = np.full(actual_points, y_offset)
-        z_actual = df_actual['Normalized'].values
+        z_actual = df_actual["Normalized"].values
         
         fig.add_trace(go.Scatter3d(
             x=x_actual,
             y=y_actual,
             z=z_actual,
-            mode='lines',
+            mode="lines",
             line=dict(color=colors.get(stock, "gray"), width=4),
             name=f"{stock} Actual"
         ))
@@ -72,10 +78,9 @@ def plot_3d_predictions(stocks, period="1y", interval="1d", actual_points=10, pr
         # Generate predictions
         pred = generate_future_projections_pattern(stock, interval, future_points=pred_points, num_lines=num_pred_lines)
         for pred_line in pred:
-            pred_data = pred_line['data']
-            z_pred = np.array([item['close'] for item in pred_data]) / initial
+            pred_data = pred_line["data"]
+            z_pred = np.array([item["close"] for item in pred_data]) / initial
             L = len(z_pred)
-            # Start predictions at the last actual point (x=actual_points-1)
             x_pred = np.arange(actual_points - 1, actual_points - 1 + L)
             y_pred = np.full(L, y_offset)
             
@@ -83,12 +88,11 @@ def plot_3d_predictions(stocks, period="1y", interval="1d", actual_points=10, pr
                 x=x_pred,
                 y=y_pred,
                 z=z_pred,
-                mode='lines',
-                line=dict(color=colors.get(stock, "gray"), width=4, dash='dot'),
+                mode="lines",
+                line=dict(color=colors.get(stock, "gray"), width=4, dash="dot"),
                 showlegend=False
             ))
     
-    # Set default camera and size
     fig.update_layout(
         width=1000,
         height=700,
