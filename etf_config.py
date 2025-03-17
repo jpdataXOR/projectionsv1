@@ -74,21 +74,21 @@ ETF_CONFIG = {
         "3690.HK",  # MEITUAN - W
         "9988.HK",  # BABA - W
         "1024.HK",  # KUAISHOU - W
-        "700.HK",   # TENCENT
+        #"700.HK",   # TENCENT
         "1810.HK",  # XIAOMI - W
         "2015.HK",  # LI AUTO - W
         "9999.HK",  # NTES - S
-        "981.HK",   # SMIC (corrected ID)
-        "992.HK",   # LENOVO GROUP (corrected ID)
+        #"981.HK",   # SMIC (corrected ID)
+        #"992.HK",   # LENOVO GROUP (corrected ID)
         "9868.HK",  # XPENG - W
         "9961.HK",  # TRIP.COM - S
         "6690.HK",  # HAIER SMARTHOME
         "9888.HK",  # BIDU - SW
         "9626.HK",  # BILIBILI - W
         "2382.HK",  # SUNNY OPTICAL
-        "20.HK",    # SENSETIME - W
+        #"20.HK",    # SENSETIME - W
         "6618.HK",  # JD HEALTH
-        "241.HK",   # ALI HEALTH
-        "522.HK"    # ASMPT
+       # "241.HK",   # ALI HEALTH
+        #"522.HK"    # ASMPT
     ]
 }
