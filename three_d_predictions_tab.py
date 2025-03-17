@@ -31,20 +31,8 @@ def plot_3d_predictions(stocks, period="1y", interval="1d", actual_points=10, pr
       - y-axis: A small offset for visual separation (unique for each stock)
       - z-axis: Normalized price (each series starts at 1)
     """
-    offsets = {
-        "GOOG": 0.0,
-        "AAPL": 0.05,
-        "NFLX": 0.10,
-        "MSFT": 0.15,
-        "AMZN": 0.20
-    }
-    colors = {
-        "GOOG": "blue",
-        "AAPL": "red",
-        "NFLX": "green",
-        "MSFT": "orange",
-        "AMZN": "purple"
-    }
+    offsets = {stock: idx * 0.1 for idx, stock in enumerate(stocks)}
+    colors = {"GOOG": "blue", "AAPL": "red", "NFLX": "green", "MSFT": "orange", "AMZN": "purple"}
     
     fig = go.Figure()
     
@@ -75,6 +63,17 @@ def plot_3d_predictions(stocks, period="1y", interval="1d", actual_points=10, pr
             name=f"{stock} Actual"
         ))
         
+        # Label at the last point of actual data
+        fig.add_trace(go.Scatter3d(
+            x=[x_actual[-1]],
+            y=[y_actual[-1]],
+            z=[z_actual[-1]],
+            mode="text",
+            text=[stock],
+            textposition="top center",
+            showlegend=False
+        ))
+        
         # Generate predictions
         pred = generate_future_projections_pattern(stock, interval, future_points=pred_points, num_lines=num_pred_lines)
         for pred_line in pred:
@@ -90,6 +89,17 @@ def plot_3d_predictions(stocks, period="1y", interval="1d", actual_points=10, pr
                 z=z_pred,
                 mode="lines",
                 line=dict(color=colors.get(stock, "gray"), width=4, dash="dot"),
+                showlegend=False
+            ))
+            
+            # Label at the first point of prediction
+            fig.add_trace(go.Scatter3d(
+                x=[x_pred[0]],
+                y=[y_pred[0]],
+                z=[z_pred[0]],
+                mode="text",
+                text=[stock],
+                textposition="top center",
                 showlegend=False
             ))
     
@@ -111,14 +121,12 @@ def plot_3d_predictions(stocks, period="1y", interval="1d", actual_points=10, pr
 
 def render_3d_predictions_tab():
     st.header("3D Predictions Comparison")
-    st.write("Below are 3D prediction charts for different intervals. For each stock, the last 10 periods of actual data (solid line) are shown, and predictions for the next 5 periods (dotted lines) are overlaid. Stocks are normalized so they all start at 1 and are separated by a small offset.")
+    st.write("Below is the 3D prediction chart for the 1-day interval. For each stock, the last 10 periods of actual data (solid line) are shown, and predictions for the next 5 periods (dotted lines) are overlaid. Stocks are normalized so they all start at 1 and are separated by a small offset.")
     stocks = ["GOOG", "AAPL", "NFLX", "MSFT", "AMZN"]
     
-    intervals = ["1wk", "1d", "1h"]
-    for interval in intervals:
-        st.subheader(f"Interval: {interval}")
-        fig = plot_3d_predictions(stocks, period="1y", interval=interval, actual_points=10, pred_points=5, num_pred_lines=5)
-        st.plotly_chart(fig)
+    st.subheader("Interval: 1d")
+    fig = plot_3d_predictions(stocks, period="1y", interval="1d", actual_points=10, pred_points=5, num_pred_lines=5)
+    st.plotly_chart(fig)
 
 if __name__ == "__main__":
     render_3d_predictions_tab()
