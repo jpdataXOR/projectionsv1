@@ -11,6 +11,34 @@ ETF_CONFIG = {
         {"id": "MRVL", "label": "Marvell"},
         {"id": "INTC", "label": "Intel"}
     ],
+    "Indices": [
+        {"id": "^DJI", "label": "Dow Jones"},
+        {"id": "^GSPC", "label": "S&P 500"},
+        {"id": "^IXIC", "label": "NASDAQ Composite"},
+        {"id": "^RUT", "label": "Russell 2000"},
+        {"id": "^VIX", "label": "Volatility Index (VIX)"},
+        {"id": "^N225", "label": "Nikkei 225 - Japan"},
+        {"id": "^HSI", "label": "Hang Seng - Hong Kong"},
+        {"id": "^FTSE", "label": "FTSE 100 - UK"},
+        {"id": "^GDAXI", "label": "DAX - Germany"},
+        {"id": "^FCHI", "label": "CAC 40 - France"},
+        {"id": "^AXJO", "label": "ASX 200 - Australia"},
+        {"id": "^BSESN", "label": "Sensex - India"}
+    ],
+    "Currencies": [
+        {"id": "USDJPY=X", "label": "USD/JPY"},
+        {"id": "AUDUSD=X", "label": "AUD/USD"},
+        {"id": "AUDNZD=X", "label": "AUD/NZD"},
+        {"id": "USDCHF=X", "label": "USD/CHF"},
+        {"id": "EURUSD=X", "label": "EUR/USD"},
+        {"id": "EURJPY=X", "label": "EUR/JPY"}
+    ],
+    "Crypto": [
+        {"id": "BTC-USD", "label": "Bitcoin"},
+        {"id": "ETH-USD", "label": "Ethereum"},
+        {"id": "SOL-USD", "label": "Solana"},
+        {"id": "DOGE-USD", "label": "Dogecoin"}
+    ],
     "ASX20": [
         {"id": "ALL.AX", "label": "Aristocrat"},
         {"id": "ANZ.AX", "label": "ANZ"},
