@@ -1,94 +1,83 @@
-# etf_config.py
-
 ETF_CONFIG = {
     "SOXX": [
-        "AVGO",  # Broadcom Inc.
-        "NVDA",  # NVIDIA Corporation
-        "QCOM",  # QUALCOMM Incorporated
-        "TXN",   # Texas Instruments Incorporated
-        "AMD",   # Advanced Micro Devices, Inc.
-        "KLAC",  # KLA Corporation
-        "ADI",   # Analog Devices, Inc.
-        "LRCX",  # Lam Research Corporation
-        "MRVL",  # Marvell Technology, Inc.
-        "INTC"   # Intel Corporation
+        {"id": "AVGO", "label": "Broadcom"},
+        {"id": "NVDA", "label": "Nvidia"},
+        {"id": "QCOM", "label": "Qualcomm"},
+        {"id": "TXN", "label": "TexasInst"},
+        {"id": "AMD", "label": "AMD"},
+        {"id": "KLAC", "label": "KLA"},
+        {"id": "ADI", "label": "Analog"},
+        {"id": "LRCX", "label": "LamRes"},
+        {"id": "MRVL", "label": "Marvell"},
+        {"id": "INTC", "label": "Intel"}
     ],
     "ASX20": [
-        "ALL.AX",  # Aristocrat Leisure Ltd
-        "ANZ.AX",  # Australia and New Zealand Banking Group Ltd
-        # "APT.AX",  # Afterpay Ltd (Not Found)
-        "BHP.AX",  # BHP Group Ltd
-        "CBA.AX",  # Commonwealth Bank of Australia
-        "CSL.AX",  # CSL Ltd
-        "FMG.AX",  # Fortescue Metals Group Ltd
-        "GMG.AX",  # Goodman Group
-        "MQG.AX",  # Macquarie Group Ltd
-        "NAB.AX",  # National Australia Bank Ltd
-        # "NCM.AX",  # Newcrest Mining Ltd (Not Found)
-        "REA.AX",  # REA Group Ltd
-        "RIO.AX",  # RIO Tinto Ltd
-        "TCL.AX",  # Transurban Group
-        "TLS.AX",  # Telstra Corporation Ltd
-        "WBC.AX",  # Westpac Banking Corporation
-        "WES.AX",  # Wesfarmers Ltd
-        "WOW.AX",  # Woolworths Group Ltd
-        # "WPL.AX",  # Woodside Petroleum Ltd (Not Found)
-        "XRO.AX"   # Xero Ltd
+        {"id": "ALL.AX", "label": "Aristocrat"},
+        {"id": "ANZ.AX", "label": "ANZ"},
+        {"id": "BHP.AX", "label": "BHP"},
+        {"id": "CBA.AX", "label": "Commonwealth"},
+        {"id": "CSL.AX", "label": "CSL"},
+        {"id": "FMG.AX", "label": "Fortescue"},
+        {"id": "GMG.AX", "label": "Goodman"},
+        {"id": "MQG.AX", "label": "Macquarie"},
+        {"id": "NAB.AX", "label": "NAB"},
+        {"id": "REA.AX", "label": "REA"},
+        {"id": "RIO.AX", "label": "RioTinto"},
+        {"id": "TCL.AX", "label": "Transurban"},
+        {"id": "TLS.AX", "label": "Telstra"},
+        {"id": "WBC.AX", "label": "Westpac"},
+        {"id": "WES.AX", "label": "Wesfarmers"},
+        {"id": "WOW.AX", "label": "Woolworths"},
+        {"id": "XRO.AX", "label": "Xero"}
     ],
     "NASDAQ20": [
-        "AAPL",  # Apple Inc
-        "MSFT",  # Microsoft Corp
-        "NVDA",  # NVIDIA Corp
-        "AMZN",  # Amazon.com Inc
-        "META",  # Meta Platforms Inc
-        "TSLA",  # Tesla Inc
-        "COST",  # Costco Wholesale Corp
-        "GOOGL",  # Alphabet Inc (Class A)
-        "GOOG",  # Alphabet Inc (Class C)
-        "NFLX",  # Netflix Inc
-        "ADBE",  # Adobe Inc
-        "AVGO",  # Broadcom Inc
-        "AMGN",  # Amgen Inc
-        "INTC",  # Intel Corp
-        "CSCO",  # Cisco Systems Inc
-        "TXN",   # Texas Instruments Inc
-        "QCOM",  # QUALCOMM Inc
-        "MU",    # Micron Technology Inc
-        "PEP",   # PepsiCo Inc
-        "ADP"    # Automatic Data Processing Inc
+        {"id": "AAPL", "label": "Apple"},
+        {"id": "MSFT", "label": "Microsoft"},
+        {"id": "NVDA", "label": "Nvidia"},
+        {"id": "AMZN", "label": "Amazon"},
+        {"id": "META", "label": "Meta"},
+        {"id": "TSLA", "label": "Tesla"},
+        {"id": "COST", "label": "Costco"},
+        {"id": "GOOGL", "label": "AlphabetA"},
+        {"id": "GOOG", "label": "AlphabetC"},
+        {"id": "NFLX", "label": "Netflix"},
+        {"id": "ADBE", "label": "Adobe"},
+        {"id": "AVGO", "label": "Broadcom"},
+        {"id": "AMGN", "label": "Amgen"},
+        {"id": "INTC", "label": "Intel"},
+        {"id": "CSCO", "label": "Cisco"},
+        {"id": "TXN", "label": "TexasInst"},
+        {"id": "QCOM", "label": "Qualcomm"},
+        {"id": "MU", "label": "Micron"},
+        {"id": "PEP", "label": "Pepsi"},
+        {"id": "ADP", "label": "ADP"}
     ],
     "NIKKEI10": [
-        "9983.T",  # FAST RETAILING CO., LTD.
-        "8035.T",  # TOKYO ELECTRON LTD.
-        "6857.T",  # ADVANTEST CORP.
-        "9984.T",  # SOFTBANK GROUP CORP.
-        "4063.T",  # SHIN-ETSU CHEMICAL CO., LTD.
-        "9433.T",  # KDDI CORP.
-        "6762.T",  # TDK CORP.
-        "6098.T",  # RECRUIT HOLDINGS CO., LTD.
-        "4543.T",  # TERUMO CORP.
-        "6954.T"   # FANUC CORP.
+        {"id": "9983.T", "label": "FastRetail"},
+        {"id": "8035.T", "label": "TokyoElec"},
+        {"id": "6857.T", "label": "Advantest"},
+        {"id": "9984.T", "label": "SoftBank"},
+        {"id": "4063.T", "label": "ShinEtsu"},
+        {"id": "9433.T", "label": "KDDI"},
+        {"id": "6762.T", "label": "TDK"},
+        {"id": "6098.T", "label": "Recruit"},
+        {"id": "4543.T", "label": "Terumo"},
+        {"id": "6954.T", "label": "Fanuc"}
     ],
     "HANGSENG": [
-        "9618.HK",  # JD - SW
-        "3690.HK",  # MEITUAN - W
-        "9988.HK",  # BABA - W
-        "1024.HK",  # KUAISHOU - W
-        #"700.HK",   # TENCENT
-        "1810.HK",  # XIAOMI - W
-        "2015.HK",  # LI AUTO - W
-        "9999.HK",  # NTES - S
-        #"981.HK",   # SMIC (corrected ID)
-        #"992.HK",   # LENOVO GROUP (corrected ID)
-        "9868.HK",  # XPENG - W
-        "9961.HK",  # TRIP.COM - S
-        "6690.HK",  # HAIER SMARTHOME
-        "9888.HK",  # BIDU - SW
-        "9626.HK",  # BILIBILI - W
-        "2382.HK",  # SUNNY OPTICAL
-        #"20.HK",    # SENSETIME - W
-        "6618.HK",  # JD HEALTH
-       # "241.HK",   # ALI HEALTH
-        #"522.HK"    # ASMPT
+        {"id": "9618.HK", "label": "JD"},
+        {"id": "3690.HK", "label": "Meituan"},
+        {"id": "9988.HK", "label": "Alibaba"},
+        {"id": "1024.HK", "label": "Kuaishou"},
+        {"id": "1810.HK", "label": "Xiaomi"},
+        {"id": "2015.HK", "label": "LiAuto"},
+        {"id": "9999.HK", "label": "NetEase"},
+        {"id": "9868.HK", "label": "XPeng"},
+        {"id": "9961.HK", "label": "Trip.com"},
+        {"id": "6690.HK", "label": "Haier"},
+        {"id": "9888.HK", "label": "Baidu"},
+        {"id": "9626.HK", "label": "Bilibili"},
+        {"id": "2382.HK", "label": "SunnyOpt"},
+        {"id": "6618.HK", "label": "JDHealth"}
     ]
 }
