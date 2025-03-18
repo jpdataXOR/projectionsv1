@@ -12,18 +12,18 @@ ETF_CONFIG = {
         {"id": "INTC", "label": "Intel"}
     ],
     "Indices": [
-        {"id": "^DJI", "label": "Dow Jones"},
+       # {"id": "^DJI", "label": "Dow Jones"},
         {"id": "^GSPC", "label": "S&P 500"},
         {"id": "^IXIC", "label": "NASDAQ Composite"},
-        {"id": "^RUT", "label": "Russell 2000"},
+        #{"id": "^RUT", "label": "Russell 2000"},
         {"id": "^VIX", "label": "Volatility Index (VIX)"},
         {"id": "^N225", "label": "Nikkei 225 - Japan"},
         {"id": "^HSI", "label": "Hang Seng - Hong Kong"},
         {"id": "^FTSE", "label": "FTSE 100 - UK"},
         {"id": "^GDAXI", "label": "DAX - Germany"},
-        {"id": "^FCHI", "label": "CAC 40 - France"},
-        {"id": "^AXJO", "label": "ASX 200 - Australia"},
-        {"id": "^BSESN", "label": "Sensex - India"}
+        #{"id": "^FCHI", "label": "CAC 40 - France"},
+        #{"id": "^AXJO", "label": "ASX 200 - Australia"},
+        #{"id": "^BSESN", "label": "Sensex - India"}
     ],
     "Currencies": [
         {"id": "USDJPY=X", "label": "USD/JPY"},
